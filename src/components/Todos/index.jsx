@@ -6,7 +6,13 @@ import Input from "../Input";
 var id = 2;
 
 function Todos() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([
+    {
+      id: id,
+      content: 'value',
+      isDone: true
+    }
+  ]);
 
   const [value, setValue] = useState("");
 
@@ -17,6 +23,7 @@ function Todos() {
         {
           id: id,
           content: value,
+          isDone: false
         },
         ...todos,
       ]);
@@ -33,6 +40,16 @@ function Todos() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const handleToggleIsDone = (id) => {
+    setTodos(todos.map((todo) => {
+      if(todo.id !== id) return todo
+      return {
+        ...todo,
+        isDone: !todo.isDone
+      }
+    }))
+  }
+
   return (
     <div>
       <Input
@@ -46,6 +63,7 @@ function Todos() {
             key={todo.id}
             todo={todo}
             handleDelete={handleDelete}
+            handleToggleIsDone={handleToggleIsDone}
           />
         ))}
       </div>

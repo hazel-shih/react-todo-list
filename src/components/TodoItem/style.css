@@ -1,10 +1,5 @@
-* {
-  box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
-}
 
-.task-block {
+/* .task-block {
   width: 100%;
   min-height: 50px;
   padding: 0 3%;
@@ -14,26 +9,22 @@
   justify-content: space-between;
   position: relative;
   align-items: center;
-}
+} */
 
-.task-block:last-child {
+/* .task-block:last-child {
   margin-bottom: 30px;
-}
+} */
 
-.task-block:hover {
+/* .task-block:hover {
   background: #DDE6FA;
   transition: background 0.2s;
-}
+} */
 
-.task-block__checked {
+/* .task-block__checked {
   filter: opacity(25%);
-}
+} */
 
-.task-block__checked:hover {
-  background: none;
-}
-
-.check-box {
+/* .check-box {
   min-width: 18px;
   min-height: 18px;
   border: 1px solid #3B66C3;
@@ -43,12 +34,12 @@
 
 .check-box:hover {
   box-shadow: 0 0 2px 1px #3B66C3;
-}
+} */
 
-.checked {
-  background-image: url('../../img/ckecked.png');
+/* .checked {
+  background-image: url('../../img/checked.png');
   background-size: contain;
-}
+} */
 
 .task-name {
   width: 100%;
@@ -59,15 +50,21 @@
   overflow-wrap: anywhere;
 }
 
-.delete {
+/* .delete {
   min-width: 22px;
   min-height: 22px;
   background-image: url('../../img/delete.png');
   filter: opacity(40%);
   background-size: cover;
   cursor: pointer;
-}
+} */
 
-.delete:hover {
+/* .delete:hover {
   filter: none;
-}
+} */
+
+
+/* .checked {
+  background-image: url('../../img/checked.png');
+  background-size: contain;
+} */
