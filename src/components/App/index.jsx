@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import "./style.css"
-import TodoItem from "../TodoItem"
+import Todos from "../Todos"
 import Input from "../Input"
+import Filter from "../Filter"
 
 var id = 1
 
 function App() {
   const [todos, setTodos] = useState([])
+  const [filterState, setFilterState] = useState('all')
 
   const createTask = (todo) => {
     setTodos([
@@ -38,20 +40,23 @@ function App() {
     setTodos([])
   }
 
+  function handleFilter(btnName) {
+    setFilterState(btnName)
+  }
+
   return (
     <section className="todo-list">
       <div className="wrapper">
         <h1 className="title">TODO LIST</h1>
         <Input onKeyPress={createTask} />
+        <Filter handleFilter={handleFilter} show={todos.length !== 0}/>
         <div>
-          {todos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              handleDelete={handleDelete}
-              handleToggleIsDone={handleToggleIsDone}
-            />
-          ))}
+          <Todos 
+          todosData={todos} 
+          showData={filterState} 
+          handleDelete={handleDelete}
+          handleToggleIsDone={handleToggleIsDone}
+          />
         </div>
         <button onClick={handleDeleteAll} className="delete-all">Delete All</button>
       </div>
