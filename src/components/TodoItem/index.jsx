@@ -60,6 +60,7 @@ const Delete = styled.div`
 `
 
 function TodoItem({ todo, handleDelete, handleToggleIsDone }) {
+  
   return (
     <TaskBlock isDone={todo.isDone}>
       <CheckBox isDone={todo.isDone} onClick={() => handleToggleIsDone(todo.id)} />
@@ -69,5 +70,5 @@ function TodoItem({ todo, handleDelete, handleToggleIsDone }) {
   )
 }
 
-export default TodoItem;
+export default TodoItem
 
