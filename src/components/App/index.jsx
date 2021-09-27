@@ -36,12 +36,26 @@ function App() {
     }))
   }
 
+  function handleEdit(id) {
+    console.log(1);
+  }
+
   function handleDeleteAll() {
     setTodos([])
   }
 
   function handleFilter(btnName) {
     setFilterState(btnName)
+  }
+
+  function handleEditContent(id, newContent) {
+    setTodos(todos.map(todo => {
+      if(todo.id !== id) return todo
+      return {
+        ...todo,
+        content: newContent
+      }
+    } ))
   }
 
   return (
@@ -56,6 +70,8 @@ function App() {
           showData={filterState} 
           handleDelete={handleDelete}
           handleToggleIsDone={handleToggleIsDone}
+          handleEdit={handleEdit}
+          handleEditContent={handleEditContent}
           />
         </div>
         <button onClick={handleDeleteAll} className="delete-all">Delete All</button>

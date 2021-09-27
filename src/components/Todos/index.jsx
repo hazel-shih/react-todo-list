@@ -17,6 +17,7 @@ function Todos(props) {
         todo={data}
         handleDelete={props.handleDelete}
         handleToggleIsDone={props.handleToggleIsDone}
+        handleEditContent={props.handleEditContent}
       />
     ))
   )

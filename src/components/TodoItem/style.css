@@ -41,14 +41,13 @@
   background-size: contain;
 } */
 
-.task-name {
+/* .task-name {
   width: 100%;
   color: #2B3B54;
   font-size: 16px;
-  padding: 15px 15px;
   text-align: left;
   overflow-wrap: anywhere;
-}
+} */
 
 /* .delete {
   min-width: 22px;
