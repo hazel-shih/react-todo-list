@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import Todos from "../Todos";
 import Input from "../Input";
@@ -6,9 +6,24 @@ import Filter from "../Filter";
 
 var id = 1;
 
+function writeTodosIntoLocalStorage(todos) {
+  window.localStorage.setItem("todos", JSON.stringify(todos));
+}
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [filterState, setFilterState] = useState("all");
+
+  useEffect(() => {
+    let todosData = window.localStorage.getItem("todos") || "";
+    if (todosData) {
+      setTodos(JSON.parse(todosData));
+    }
+  }, []);
+
+  useEffect(() => {
+    writeTodosIntoLocalStorage(todos);
+  }, [todos]);
 
   const createTask = (todo) => {
     setTodos([
