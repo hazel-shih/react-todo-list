@@ -1,84 +1,91 @@
-import React, { useState } from "react"
-import "./style.css"
-import Todos from "../Todos"
-import Input from "../Input"
-import Filter from "../Filter"
+import React, { useState } from "react";
+import "./style.css";
+import Todos from "../Todos";
+import Input from "../Input";
+import Filter from "../Filter";
 
-var id = 1
-
+var id = 1;
 
 function App() {
-  const [todos, setTodos] = useState([])
-  const [filterState, setFilterState] = useState('all')
+  const [todos, setTodos] = useState([]);
+  const [filterState, setFilterState] = useState("all");
 
   const createTask = (todo) => {
     setTodos([
       {
         id: id,
         content: todo,
-        isDone: false
+        isDone: false,
       },
       ...todos,
-    ])
-    id ++
-  }
+    ]);
+    id++;
+  };
 
   const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
-  }
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   const handleToggleIsDone = (id) => {
-    setTodos(todos.map((todo) => {
-      if(todo.id !== id) return todo
-      return {
-        ...todo,
-        isDone: !todo.isDone
-      }
-    }))
-  }
-
-  function handleEdit(id) {
-    console.log(1);
-  }
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id !== id) return todo;
+        return {
+          ...todo,
+          isDone: !todo.isDone,
+        };
+      })
+    );
+  };
 
   function handleDeleteAll() {
-    setTodos([])
+    setTodos([]);
   }
 
   function handleFilter(btnName) {
-    setFilterState(btnName)
+    setFilterState(btnName);
   }
 
   function handleEditContent(id, newContent) {
-    setTodos(todos.map(todo => {
-      if(todo.id !== id) return todo
-      return {
-        ...todo,
-        content: newContent
-      }
-    } ))
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id !== id) return todo;
+        return {
+          ...todo,
+          content: newContent,
+        };
+      })
+    );
   }
 
   return (
     <section className="todo-list">
-      <div style={{paddingBottom: todos.length !== 0 ? '60px' : '35px'}} className="wrapper">
+      <div
+        style={{ paddingBottom: todos.length !== 0 ? "60px" : "35px" }}
+        className="wrapper"
+      >
         <h1 className="title">TODO LIST</h1>
         <Input onKeyPress={createTask} />
-        <Filter handleFilter={handleFilter} show={todos.length !== 0}/>
+        <Filter handleFilter={handleFilter} show={todos.length !== 0} />
         <div>
-          <Todos 
-          todosData={todos} 
-          showData={filterState} 
-          handleDelete={handleDelete}
-          handleToggleIsDone={handleToggleIsDone}
-          handleEdit={handleEdit}
-          handleEditContent={handleEditContent}
+          <Todos
+            todosData={todos}
+            showData={filterState}
+            handleDelete={handleDelete}
+            handleToggleIsDone={handleToggleIsDone}
+            handleEditContent={handleEditContent}
           />
         </div>
-        <button style={todos.length !== 0 ? {} : {display: 'none'}} onClick={handleDeleteAll} className="delete-all">Delete All</button>
+        <button
+          style={todos.length !== 0 ? {} : { display: "none" }}
+          onClick={handleDeleteAll}
+          className="delete-all"
+        >
+          Delete All
+        </button>
       </div>
     </section>
-  )  
+  );
 }
 
-export default App
+export default App;
