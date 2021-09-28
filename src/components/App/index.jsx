@@ -6,6 +6,7 @@ import Filter from "../Filter"
 
 var id = 1
 
+
 function App() {
   const [todos, setTodos] = useState([])
   const [filterState, setFilterState] = useState('all')
@@ -60,7 +61,7 @@ function App() {
 
   return (
     <section className="todo-list">
-      <div className="wrapper">
+      <div style={{paddingBottom: todos.length !== 0 ? '60px' : '35px'}} className="wrapper">
         <h1 className="title">TODO LIST</h1>
         <Input onKeyPress={createTask} />
         <Filter handleFilter={handleFilter} show={todos.length !== 0}/>
@@ -74,7 +75,7 @@ function App() {
           handleEditContent={handleEditContent}
           />
         </div>
-        <button onClick={handleDeleteAll} className="delete-all">Delete All</button>
+        <button style={todos.length !== 0 ? {} : {display: 'none'}} onClick={handleDeleteAll} className="delete-all">Delete All</button>
       </div>
     </section>
   )  

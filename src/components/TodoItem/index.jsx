@@ -98,8 +98,7 @@ const EditInput = styled.input`
 
 function TodoItem({ todo, handleDelete, handleToggleIsDone, handleEditContent }) {
   const [editing, setEditing] = useState(false)
-  const [editContent, setEditContent] = useState('')
-  const [defaultInput, setDefaultInput] = useState(todo.content)
+  const [editContent, setEditContent] = useState(todo.content)
 
   function handleCheck() {
     setEditing(false)
@@ -110,13 +109,14 @@ function TodoItem({ todo, handleDelete, handleToggleIsDone, handleEditContent })
     setEditing(prevValue => !prevValue)
   }
 
-  function handleCancel() {
+  function handleCancel(e) {
     setEditing(prevValue => !prevValue)
+    setEditContent(todo.content)
   }
 
   function handleChangeInput(e) {
-    const { value: newContent } = e.target
-    setEditContent(newContent)
+    const { value } = e.target
+    setEditContent(value)
   }
 
   function handleFinish() {
@@ -130,8 +130,9 @@ function TodoItem({ todo, handleDelete, handleToggleIsDone, handleEditContent })
       <CheckBox isDone={todo.isDone} onClick={handleCheck} />
       <Content editing={editing}>{todo.content}</Content>
       <EditInput 
+        value={editContent}
         editing={editing} 
-        defaultValue={todo.content} //有問題
+        // defaultValue={todo.content}
         onChange={handleChangeInput} />
       <Finish onClick={handleFinish} editing={editing}  />
       <Cancel onClick={handleCancel} editing={editing}  />

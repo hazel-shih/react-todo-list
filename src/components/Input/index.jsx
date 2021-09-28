@@ -20,7 +20,7 @@ function Input(props) {
 
   return (
     <input type="text" className="create-task" onChange={handleInputChange}
-    onKeyPress={(e) => {handleKeyPress(e, todo, props.onKeyPress)}} value={todo} autoFocus />
+    onKeyPress={(e) => {handleKeyPress(e, todo, props.onKeyPress)}} value={todo} autoFocus/>
   )
 }
 
