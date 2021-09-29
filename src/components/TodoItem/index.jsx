@@ -121,7 +121,7 @@ function TodoItem({
     setEditing((prevValue) => !prevValue);
   }
 
-  function handleCancel(e) {
+  function handleCancel() {
     setEditing((prevValue) => !prevValue);
     setEditContent(todo.content);
   }
