@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import deleteIMG from "../../img/delete.png";
 import checkedIMG from "../../img/checked.png";
@@ -6,6 +5,7 @@ import editIMG from "../../img/edit.png";
 import checkIMG from "../../img/check.png";
 import cancelIMG from "../../img/close.png";
 import "./style.css";
+import useEdit from "../../hooks/useEdit";
 
 const TaskBlock = styled.div`
   width: 100%;
@@ -109,45 +109,37 @@ function TodoItem({
   handleToggleIsDone,
   handleEditContent,
 }) {
-  const [editing, setEditing] = useState(false);
-  const [editContent, setEditContent] = useState(todo.content);
-
-  function handleCheck() {
-    setEditing(false);
-    handleToggleIsDone(todo.id);
-  }
-
-  function handleEdit() {
-    setEditing((prevValue) => !prevValue);
-  }
-
-  function handleCancel() {
-    setEditing((prevValue) => !prevValue);
-    setEditContent(todo.content);
-  }
-
-  function handleChangeInput(e) {
-    const { value } = e.target;
-    setEditContent(value);
-  }
-
-  function handleFinish() {
-    setEditing((prevValue) => !prevValue);
-    if (editContent === "") return;
-    handleEditContent(todo.id, editContent);
-  }
+  const {
+    editing,
+    setEditing,
+    editContent,
+    setEditContent,
+    handleCheck,
+    handleEdit,
+    handleCancel,
+    handleChangeInput,
+    handleFinish,
+  } = useEdit(todo);
 
   return (
     <TaskBlock isDone={todo.isDone}>
-      <CheckBox isDone={todo.isDone} onClick={handleCheck} />
+      <CheckBox
+        isDone={todo.isDone}
+        onClick={() => {
+          handleCheck();
+          handleToggleIsDone(todo.id);
+        }}
+      />
       <Content editing={editing}>{todo.content}</Content>
       <EditInput
         value={editContent}
         editing={editing}
-        // defaultValue={todo.content}
         onChange={handleChangeInput}
       />
-      <Finish onClick={handleFinish} editing={editing} />
+      <Finish
+        onClick={() => handleFinish(handleEditContent, todo.id, editContent)}
+        editing={editing}
+      />
       <Cancel onClick={handleCancel} editing={editing} />
       <Edit onClick={handleEdit} editing={editing} />
       <Delete onClick={() => handleDelete(todo.id)} />

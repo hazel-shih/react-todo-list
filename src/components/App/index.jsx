@@ -1,78 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
 import "./style.css";
 import Todos from "../Todos";
 import Input from "../Input";
 import Filter from "../Filter";
-
-function writeTodosIntoLocalStorage(todos) {
-  window.localStorage.setItem("todos", JSON.stringify(todos));
-}
+import useTodos from "../../hooks/useTodos";
+import useFilter from "../../hooks/useFilter";
 
 function App() {
-  const id = useRef(1);
-  const [todos, setTodos] = useState(() => {
-    let todosData = window.localStorage.getItem("todos") || "";
-    if (todosData && todosData !== "[]") {
-      todosData = JSON.parse(todosData);
-      id.current = todosData[0].id + 1;
-    } else {
-      todosData = [];
-    }
-    return todosData;
-  });
-  const [filterState, setFilterState] = useState("all");
+  const {
+    id,
+    todos,
+    setTodos,
+    createTask,
+    handleDelete,
+    handleToggleIsDone,
+    handleDeleteAll,
+    handleEditContent,
+  } = useTodos();
 
-  useEffect(() => {
-    writeTodosIntoLocalStorage(todos);
-  }, [todos]);
-
-  const createTask = (todo) => {
-    setTodos([
-      {
-        id: id.current,
-        content: todo,
-        isDone: false,
-      },
-      ...todos,
-    ]);
-    id.current++;
-  };
-
-  const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const handleToggleIsDone = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
-        return {
-          ...todo,
-          isDone: !todo.isDone,
-        };
-      })
-    );
-  };
-
-  function handleDeleteAll() {
-    setTodos([]);
-  }
-
-  function handleFilter(btnName) {
-    setFilterState(btnName);
-  }
-
-  function handleEditContent(id, newContent) {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
-        return {
-          ...todo,
-          content: newContent,
-        };
-      })
-    );
-  }
+  const { filter, setFilter, handleFilter } = useFilter();
 
   return (
     <section className="todo-list">
@@ -81,12 +26,12 @@ function App() {
         className="wrapper"
       >
         <h1 className="title">TODO LIST</h1>
-        <Input onKeyPress={createTask} />
+        <Input createTask={createTask} />
         <Filter handleFilter={handleFilter} show={todos.length !== 0} />
         <div>
           <Todos
             todosData={todos}
-            showData={filterState}
+            showData={filter}
             handleDelete={handleDelete}
             handleToggleIsDone={handleToggleIsDone}
             handleEditContent={handleEditContent}

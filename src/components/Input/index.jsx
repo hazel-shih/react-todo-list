@@ -1,31 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style.css";
+import useInput from "../../hooks/useInput";
 
-function Input(props) {
-  const [todo, setTodo] = useState("");
-
-  const handleInputChange = (e) => {
-    const { value } = e.target;
-    setTodo(value);
-  };
-
-  function handleKeyPress(e, todo, createTask) {
-    if (e.key === "Enter") {
-      if (todo === "") return;
-      createTask(todo);
-      setTodo("");
-    }
-  }
-
+function Input({ createTask }) {
+  const { input, setInput, handleInputChange, handleKeyPress } = useInput();
   return (
     <input
       type="text"
       className="create-task"
       onChange={handleInputChange}
       onKeyPress={(e) => {
-        handleKeyPress(e, todo, props.onKeyPress);
+        handleKeyPress(e, input, createTask);
       }}
-      value={todo}
+      value={input}
       autoFocus
     />
   );
