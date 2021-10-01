@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import deleteIMG from "../../img/delete.png";
 import checkedIMG from "../../img/checked.png";
@@ -6,6 +7,7 @@ import checkIMG from "../../img/check.png";
 import cancelIMG from "../../img/close.png";
 import "./style.css";
 import useEdit from "../../hooks/useEdit";
+import { TodoItemFunctionContext } from "../App";
 
 const TaskBlock = styled.div`
   width: 100%;
@@ -103,17 +105,14 @@ const EditInput = styled.input`
   display: ${(props) => (props.editing ? "block" : "none")};
 `;
 
-function TodoItem({
-  todo,
-  handleDelete,
-  handleToggleIsDone,
-  handleEditContent,
-}) {
+function TodoItem({ todo }) {
+  const { handleDelete, handleToggleIsDone, handleEditContent } = useContext(
+    TodoItemFunctionContext
+  );
+
   const {
     editing,
-    setEditing,
     editContent,
-    setEditContent,
     handleCheck,
     handleEdit,
     handleCancel,

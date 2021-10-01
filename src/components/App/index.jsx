@@ -1,15 +1,15 @@
+import { createContext, useState } from "react";
 import "./style.css";
 import Todos from "../Todos";
 import Input from "../Input";
 import Filter from "../Filter";
 import useTodos from "../../hooks/useTodos";
-import useFilter from "../../hooks/useFilter";
 
+const TodoItemFunctionContext = createContext();
+const FilterButtonContext = createContext();
 function App() {
   const {
-    id,
     todos,
-    setTodos,
     createTask,
     handleDelete,
     handleToggleIsDone,
@@ -17,7 +17,7 @@ function App() {
     handleEditContent,
   } = useTodos();
 
-  const { filter, setFilter, handleFilter } = useFilter();
+  const [filter, setFilter] = useState("all");
 
   return (
     <section className="todo-list">
@@ -27,15 +27,21 @@ function App() {
       >
         <h1 className="title">TODO LIST</h1>
         <Input createTask={createTask} />
-        <Filter handleFilter={handleFilter} show={todos.length !== 0} />
+        <FilterButtonContext.Provider value={{ filter, setFilter }}>
+          <Filter show={todos.length !== 0} />
+        </FilterButtonContext.Provider>
+
         <div>
-          <Todos
-            todosData={todos}
-            showData={filter}
-            handleDelete={handleDelete}
-            handleToggleIsDone={handleToggleIsDone}
-            handleEditContent={handleEditContent}
-          />
+          <TodoItemFunctionContext.Provider
+            value={{
+              todos,
+              handleDelete,
+              handleToggleIsDone,
+              handleEditContent,
+            }}
+          >
+            <Todos todosData={todos} showData={filter} />
+          </TodoItemFunctionContext.Provider>
         </div>
         <button
           style={todos.length !== 0 ? {} : { display: "none" }}
@@ -50,3 +56,5 @@ function App() {
 }
 
 export default App;
+export { TodoItemFunctionContext };
+export { FilterButtonContext };

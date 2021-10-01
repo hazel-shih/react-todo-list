@@ -9,11 +9,11 @@ function useEdit(todo) {
   }
 
   function handleEdit() {
-    setEditing((prevValue) => !prevValue);
+    setEditing((editing) => !editing);
   }
 
   function handleCancel() {
-    setEditing((prevValue) => !prevValue);
+    setEditing((editing) => !editing);
     setEditContent(todo.content);
   }
 
@@ -23,7 +23,7 @@ function useEdit(todo) {
   }
 
   function handleFinish(handleEditContent, id, newContent) {
-    setEditing((prevValue) => !prevValue);
+    setEditing((editing) => !editing);
     if (newContent === "") return;
     handleEditContent(id, newContent);
   }
