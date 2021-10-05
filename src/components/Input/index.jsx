@@ -3,7 +3,7 @@ import "./style.css";
 import useInput from "../../hooks/useInput";
 
 function Input({ createTask }) {
-  const { input, setInput, handleInputChange, handleKeyPress } = useInput();
+  const { input, handleInputChange, handleKeyPress } = useInput();
   return (
     <input
       type="text"
